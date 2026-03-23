@@ -38,16 +38,16 @@ background-size:128px 128px;
 –purple:#9747FF;–purple2:#BF7CFF;
 –teal:#00C9A7;–red:#FF4D6D;
 –bg:#080818;–bg2:#0C0C1E;–bg3:#111128;–bg4:#181830;
-–txt:#F2F0EC;–muted:#7070A0;–muted2:#404060;
+–txt:#F2F0EC;–muted:#9898C0;–muted2:#6060A0;
 –r:12px;–rl:20px;–nav:64px;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:var(–nav)}
 body{
 color:var(–txt);font-family:‘Manrope’,sans-serif;overflow-x:hidden;
 -webkit-font-smoothing:antialiased;min-height:100vh;
 background-color:#080818;
 background-image:
-radial-gradient(ellipse 80% 50% at 50% -10%, rgba(26,110,252,.18) 0%, transparent 60%),
+radial-gradient(ellipse 80% 50% at 50% -10%, rgba(26,110,252,.10) 0%, transparent 60%),
 radial-gradient(ellipse 40% 30% at 85% 20%, rgba(151,71,255,.10) 0%, transparent 55%),
 radial-gradient(ellipse 35% 25% at 10% 60%, rgba(0,201,167,.07) 0%, transparent 50%),
 radial-gradient(ellipse 50% 40% at 50% 100%, rgba(201,168,76,.08) 0%, transparent 55%);
@@ -70,7 +70,7 @@ img{display:block;max-width:100%}
 
 /* ── NAV ── */
 nav{
-position:fixed;top:0;left:0;right:0;z-index:900;height:var(–nav);
+position:fixed;top:0;left:0;right:0;z-index:1000;height:var(–nav);
 display:flex;align-items:center;justify-content:space-between;padding:0 5%;
 background:rgba(7,7,15,.0);backdrop-filter:blur(0px);
 border-bottom:1px solid rgba(255,255,255,.0);
@@ -90,38 +90,38 @@ nav.scrolled{background:rgba(8,8,24,.94);backdrop-filter:blur(24px) saturate(180
 .btn-cta{font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.42rem 1.1rem;border-radius:6px;background:linear-gradient(135deg,var(–blue),var(–blue2));color:#fff;box-shadow:0 4px 18px rgba(26,110,252,.35);transition:.25s;position:relative;overflow:hidden}
 .btn-cta::before{content:’’;position:absolute;inset:0;background:rgba(255,255,255,.12);opacity:0;transition:.25s}
 .btn-cta:hover{transform:translateY(-1px);box-shadow:0 6px 26px rgba(26,110,252,.55)}.btn-cta:hover::before{opacity:1}
-.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.ham{display:none;flex-direction:column;gap:5px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;cursor:pointer;padding:8px}
 .ham span{display:block;width:22px;height:2px;background:var(–txt);border-radius:2px;transition:.3s}
-.mob-nav{display:none;position:fixed;top:var(–nav);left:0;right:0;z-index:899;background:rgba(7,7,15,.97);backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,.06);padding:1.2rem 5%;flex-direction:column;gap:.25rem;transform:translateY(-10px);opacity:0;transition:opacity .3s,transform .3s;pointer-events:none}
+.mob-nav{display:none;position:fixed;top:var(–nav);left:0;right:0;z-index:999;background:rgba(7,7,15,.97);backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,.06);padding:1.2rem 5%;flex-direction:column;gap:.25rem;transform:translateY(-10px);opacity:0;transition:opacity .3s,transform .3s;pointer-events:none}
 .mob-nav.open{display:flex;transform:translateY(0);opacity:1;pointer-events:all}
 .mob-nav a{font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(–muted);padding:.65rem 0;border-bottom:1px solid rgba(255,255,255,.04);transition:.2s}
 .mob-nav a:hover{color:var(–txt);padding-left:.5rem}
 .mob-cta{margin-top:.6rem;padding:.75rem;text-align:center;border-radius:8px;background:linear-gradient(135deg,var(–blue),var(–blue2));color:#fff!important;font-weight:600;font-size:.78rem;border:none!important}
 
 /* ── HERO ── */
-#hero{padding-top:var(–nav);position:relative}
-.banner{position:relative;height:280px;overflow:hidden}
+#hero{padding-top:var(–nav);position:relative;z-index:1}
+.banner{position:relative;height:280px;overflow:hidden;z-index:1}
 .banner img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transform:scale(1.05);transition:transform 8s ease}
 .banner img.loaded{transform:scale(1)}
 .banner-fade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,15,.08) 0%,rgba(7,7,15,.45) 65%,rgba(7,7,15,1) 100%)}
 .banner-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 50%,rgba(26,110,252,.03) 100%)}
 
-.profile-row{display:flex;align-items:flex-end;gap:1.5rem;padding:0 5%;margin-top:1.2rem}
+.profile-row{display:flex;align-items:flex-end;gap:1.5rem;padding:0 5%;margin-top:1.2rem;overflow:visible}
 .pfp-wrap{position:relative;flex-shrink:0;width:130px;height:130px}
 .pfp-ring{position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(var(–gold),var(–gold2),var(–gold3),var(–gold));animation:spin 7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .pfp-wrap img{position:relative;z-index:1;width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(–bg)}
 .online{position:absolute;bottom:8px;right:8px;z-index:2;width:16px;height:16px;border-radius:50%;background:#22c55e;border:2.5px solid var(–bg);box-shadow:0 0 0 0 rgba(34,197,94,.5);animation:sonar 2.5s infinite}
 @keyframes sonar{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-.profile-info{padding-bottom:.7rem;flex:1;min-width:0}
+.profile-info{padding-bottom:.7rem;flex:1;min-width:0;overflow:visible}
 .handle{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(–gold);margin-bottom:.28rem;display:flex;align-items:center;gap:.5rem}
 .handle::before{content:’’;width:16px;height:1px;background:var(–gold)}
-.name{font-family:‘Syne’,sans-serif;font-weight:800;font-size:clamp(1.9rem,5vw,3.5rem);line-height:1.02;background:linear-gradient(130deg,#fff 15%,var(–gold2) 85%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(232,201,106,.35))}
-.roles{font-size:.78rem;color:var(–muted);margin-top:.38rem;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
+.name{font-family:‘Syne’,sans-serif;font-weight:800;font-size:clamp(1.9rem,5vw,3.5rem);line-height:1.02;display:block;color:#E8C96A;background:linear-gradient(130deg,#fff 15%,var(–gold2) 85%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(232,201,106,.35));padding-bottom:.05em}
+.roles{font-size:.78rem;color:#9898C0;margin-top:.38rem;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
 .rdot{width:3px;height:3px;border-radius:50%;background:var(–gold);opacity:.5}
 
-.hero-body{display:grid;grid-template-columns:1fr 270px;gap:3rem;padding:2.5rem 5% 5rem;align-items:start}
-.bio{font-size:.97rem;color:var(–muted);line-height:1.88}
+.hero-body{display:grid;grid-template-columns:1fr 270px;gap:3rem;padding:2.5rem 5% 5rem;align-items:start;position:relative;z-index:1}
+.bio{font-size:.97rem;color:#B0B0D0;line-height:1.88}
 .bio strong{color:var(–txt);font-weight:600}
 .bio .hi{color:var(–gold2);font-weight:500}
 .hero-btns{display:flex;gap:.72rem;margin-top:1.8rem;flex-wrap:wrap}
@@ -175,20 +175,20 @@ nav.scrolled{background:rgba(8,8,24,.94);backdrop-filter:blur(24px) saturate(180
 .sec{padding:5.5rem 5%;position:relative;z-index:1}
 .sec-dark{background:rgba(13,13,26,.75);backdrop-filter:blur(1px)}
 .sec-darker{background:rgba(19,19,37,.8);backdrop-filter:blur(1px)}
-.eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(–gold);margin-bottom:.85rem}
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(–gold);margin-bottom:.85rem;position:relative;z-index:1}
 .eyebrow::before{content:’’;width:18px;height:1px;background:var(–gold)}
-h2{font-family:‘Syne’,sans-serif;font-weight:800;font-size:clamp(1.85rem,3.2vw,2.8rem);line-height:1.05;margin-bottom:.9rem}
+h2{font-family:‘Syne’,sans-serif;font-weight:800;font-size:clamp(1.85rem,3.2vw,2.8rem);line-height:1.05;margin-bottom:.9rem;position:relative;z-index:1}
 .hl{background:linear-gradient(135deg,var(–gold),var(–gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hl-b{background:linear-gradient(135deg,var(–blue),var(–blue2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hl-p{background:linear-gradient(135deg,var(–purple),var(–purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.sub{font-size:.92rem;color:var(–muted);max-width:520px;line-height:1.78;margin-bottom:1.8rem}
+.sub{font-size:.92rem;color:#A8A8CC;max-width:520px;line-height:1.78;margin-bottom:1.8rem;position:relative;z-index:1}
 .divider{display:flex;align-items:center;gap:1rem;padding:.4rem 5%}
 .divider::before,.divider::after{content:’’;flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
 .divider span::before{content:“◆”;color:var(–gold);font-size:.6rem;opacity:.5}
 
 /* ── SERVICES ── */
-.svc-head{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:end;margin-bottom:2.5rem}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.04);border-radius:16px;overflow:hidden}
+.svc-head{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:end;margin-bottom:2.5rem}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;position:relative;z-index:2;background:rgba(255,255,255,.04);border-radius:16px;overflow:hidden}
 .svc-card{background:var(–bg2);padding:2rem 1.8rem;position:relative;overflow:hidden;transition:background .35s,box-shadow .35s;cursor:default}
 .svc-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1)}
 .svc-card::after{content:’’;position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.04),transparent 70%);opacity:0;transition:.35s}
@@ -341,11 +341,11 @@ footer{background:rgba(6,6,20,.95);backdrop-filter:blur(10px);border-top:1px sol
 .sc{flex:1;min-width:130px}
 .svc-grid{grid-template-columns:repeat(2,1fr)}
 .pow-grid{position:relative;z-index:1;grid-template-columns:repeat(2,1fr)}
-.svc-head{position:relative;z-index:1;grid-template-columns:1fr;gap:1.2rem}
+.svc-head{position:relative;z-index:2;grid-template-columns:1fr;gap:1.2rem}
 }
 @media(max-width:768px){
 :root{–nav:60px}
-.nav-links,.btn-ghost{display:none}
+.nav-links,.btn-ghost,.btn-cta{display:none}
 .ham{display:flex}
 .banner{height:170px}
 .pfp-wrap{width:95px;height:95px}
@@ -392,7 +392,7 @@ h2{font-size:1.65rem}
   <div class="nav-r">
     <a href="#contact" class="btn-ghost">Get In Touch</a>
     <a href="https://calendly.com/xeminentx" target="_blank" class="btn-cta">📅 Book a Call</a>
-    <button class="ham" id="hamBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="ham" id="hamBtn" aria-label="Toggle navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -447,8 +447,8 @@ h2{font-size:1.65rem}
 </div>
 
 <section class="sec sec-dark" id="services" style="position:relative;overflow:hidden">
-  <div style="position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(26,110,252,.08) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
-  <div style="position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(151,71,255,.06) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;top:-8%;right:-8%;width:min(400px,60%);height:min(400px,60%);background:radial-gradient(circle,rgba(26,110,252,.08) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;bottom:-6%;left:-6%;width:min(300px,50%);height:min(300px,50%);background:radial-gradient(circle,rgba(151,71,255,.06) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
   <div class="svc-head">
     <div><div class="eyebrow reveal">What I Do</div><h2 class="reveal d1">Specialized in<br/><span class="hl">Web3 Growth</span></h2></div>
     <p class="sub reveal d2">From DeFi to NFTs and DAO governance — I craft strategies that drive real traction, combining crypto-native expertise with proven marketing fundamentals.</p>
@@ -466,7 +466,7 @@ h2{font-size:1.65rem}
 <div class="divider"><span></span></div>
 
 <section class="sec" id="audience" style="position:relative;overflow:hidden">
-  <div style="position:absolute;top:50%;right:-80px;transform:translateY(-50%);width:350px;height:350px;background:radial-gradient(circle,rgba(0,201,167,.07) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;top:50%;right:-6%;transform:translateY(-50%);width:min(350px,55%);height:min(350px,55%);background:radial-gradient(circle,rgba(0,201,167,.07) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
   <div class="two-col">
     <div>
       <div class="eyebrow reveal-left">Who I Reach</div>
@@ -490,7 +490,7 @@ h2{font-size:1.65rem}
 <div class="divider"><span></span></div>
 
 <section class="sec sec-dark" id="pow" style="position:relative;overflow:hidden">
-  <div style="position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:600px;height:200px;background:radial-gradient(ellipse,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;top:-5%;left:50%;transform:translateX(-50%);width:min(600px,90%);height:min(200px,30%);background:radial-gradient(ellipse,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
   <div class="eyebrow reveal">Track Record</div>
   <h2 class="reveal d1">Proof of <span class="hl">Work.</span></h2>
   <p class="sub reveal d2">Real projects. Real results. Here's what I've built and contributed to across the Web3 space.</p>
@@ -526,8 +526,8 @@ h2{font-size:1.65rem}
 </section>
 
 <section class="sec sec-dark" id="contact" style="position:relative;overflow:hidden">
-  <div style="position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
-  <div style="position:absolute;top:-80px;left:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(26,110,252,.06) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;bottom:-8%;right:-8%;width:min(400px,60%);height:min(400px,60%);background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
+  <div style="position:absolute;top:-6%;left:-6%;width:min(300px,50%);height:min(300px,50%);background:radial-gradient(circle,rgba(26,110,252,.06) 0%,transparent 70%);pointer-events:none;z-index:0"></div>
   <div class="contact-grid">
     <div>
       <div class="eyebrow reveal">Get In Touch</div>
@@ -594,6 +594,7 @@ window.addEventListener('scroll',function(){
 var ham=document.getElementById('hamBtn'),mob=document.getElementById('mobNav'),isOpen=false;
 ham.addEventListener('click',function(){
   isOpen=!isOpen;mob.classList.toggle('open',isOpen);
+  ham.setAttribute('aria-expanded',isOpen);
   var s=ham.querySelectorAll('span');
   if(isOpen){s[0].style.transform='rotate(45deg) translate(5px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(5px,-5px)'}
   else{s[0].style.transform='';s[1].style.opacity='1';s[2].style.transform=''}
@@ -612,11 +613,8 @@ if('IntersectionObserver' in window){
   // mark as needing animation only after page is ready
   setTimeout(function(){
     revealEls.forEach(function(el){
-      // only add hidden state if element is below viewport
       var rect=el.getBoundingClientRect();
-      if(rect.top>window.innerHeight){
-        // leave the class, observer will add visible
-      } else {
+      if(rect.top<window.innerHeight*1.05){
         el.classList.add('visible');
       }
     });
