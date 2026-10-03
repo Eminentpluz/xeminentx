@@ -49,9 +49,15 @@ cd web && python3 -m http.server 8080                         # open http://loca
 
 ## Deploy to Arc mainnet
 
+**From your wallet (no private key needed):** open the hosted app while `web/config.js` has no vault address, connect MetaMask or Rabby on Arc, and click **Deploy vault**. Then copy the new address into `web/config.js`.
+
+**From the command line:**
+
 ```bash
 PRIVATE_KEY=0x... npm run deploy          # needs a little USDC on Arc for gas
 ```
+
+After changing the contract, run `npm run build:web` to regenerate `web/vault-bytecode.js`.
 
 Then host `web/` on any static host (GitHub Pages, Vercel, Netlify).
 

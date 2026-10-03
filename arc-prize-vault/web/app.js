@@ -10,16 +10,18 @@ import {
   getAddress,
 } from "./vendor/viem.js";
 import { VAULT_ADDRESS, USDC_ADDRESS, ARC } from "./config.js";
+import { VAULT_BYTECODE } from "./vault-bytecode.js";
 
 // ?rpc=&chain=&vault=&usdc= let you point the page at a local node for testing.
 const q = new URLSearchParams(location.search);
 const chain = q.get("rpc")
   ? { ...ARC, id: Number(q.get("chain") || 31337), name: "Local", rpcUrls: { default: { http: [q.get("rpc")] } }, blockExplorers: undefined }
   : ARC;
-const vaultAddress = q.get("vault") || VAULT_ADDRESS;
+let vaultAddress = q.get("vault") || VAULT_ADDRESS;
 const usdcAddress = q.get("usdc") || USDC_ADDRESS;
 
 const vaultAbi = parseAbi([
+  "constructor(address usdc)",
   "struct Pool { address organizer; uint64 awardDeadline; bool refunded; uint256 total; uint256 paid; string name; string url; }",
   "function poolCount() view returns (uint256)",
   "function getPool(uint256) view returns (Pool pool, uint256[] slotAmounts, address[] slotWinners)",
@@ -108,9 +110,32 @@ async function createPool(e) {
   }
 }
 
+// One-time setup: the organizer deploys the vault from their own wallet, so no private key
+// ever leaves it. Afterwards the address goes in config.js (or ?vault= in the URL).
+async function deployVault() {
+  if (!account) await connect();
+  if (!account) return;
+  try {
+    toast("Deploy vault: confirm in your wallet…");
+    const hash = await wallet.deployContract({ abi: vaultAbi, bytecode: VAULT_BYTECODE, args: [usdcAddress], account, chain });
+    toast("Deploy vault: waiting for confirmation…");
+    const receipt = await pub.waitForTransactionReceipt({ hash });
+    if (receipt.status !== "success" || !receipt.contractAddress) throw new Error("Deployment failed");
+    vaultAddress = receipt.contractAddress;
+    q.set("vault", vaultAddress);
+    history.replaceState(null, "", "?" + q.toString());
+    $("#vault").innerHTML = addrLink(vaultAddress);
+    toast(`Vault deployed at ${vaultAddress}. Put it in web/config.js.`, "ok");
+    render();
+  } catch (err) {
+    toast(err.shortMessage || err.message, "err");
+  }
+}
+
 async function onPoolAction(e) {
   const btn = e.target.closest("button[data-action]");
   if (!btn) return;
+  if (btn.dataset.action === "deploy") return deployVault();
   const id = BigInt(btn.dataset.pool);
   try {
     if (btn.dataset.action === "award") {
@@ -176,7 +201,7 @@ function poolCard(id, pool, amounts, winners, now) {
 async function render() {
   const list = $("#pools");
   if (!vaultAddress) {
-    list.innerHTML = `<p class="empty">Vault not deployed yet. Run <code>scripts/deploy.js</code>.</p>`;
+    list.innerHTML = `<div class="empty"><p>No vault on this network yet.</p><p>Deploy it once from your wallet (costs a few cents of USDC in gas).</p><button data-action="deploy">Deploy vault</button></div>`;
     return;
   }
   try {

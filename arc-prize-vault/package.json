@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "hardhat test",
-    "build:web": "esbuild scripts/viem-entry.js --bundle --format=esm --minify --outfile=web/vendor/viem.js",
+    "build:web": "hardhat compile && node scripts/export-bytecode.js && esbuild scripts/viem-entry.js --bundle --format=esm --minify --outfile=web/vendor/viem.js",
     "deploy": "hardhat run scripts/deploy.js --network arc",
     "deploy:testnet": "hardhat run scripts/deploy.js --network arcTestnet"
   },
